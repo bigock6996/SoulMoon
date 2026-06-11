@@ -1,0 +1,39 @@
+workflows:
+  soul-moon-workflow:
+    name: Build Soul Moon IPA
+    environment:
+      ios_signing:
+        distribution_type: development
+      vars:
+        BUNDLE_ID: "com.bigock6996.SoulMoon"
+        XCODE_PROJECT: "SoulMoon.xcodeproj"
+        XCODE_SCHEME: "SoulMoon"
+    scripts:
+      - name: Install dependencies
+        script: |
+          echo "No dependencies to install"
+      - name: Build unsigned app
+        script: |
+          xcodebuild -project "$XCODE_PROJECT" \
+            -scheme "$XCODE_SCHEME" \
+            -sdk iphoneos \
+            -configuration Release \
+            build \
+            CODE_SIGN_IDENTITY="" \
+            CODE_SIGNING_REQUIRED=NO \
+            CODE_SIGNING_ALLOWED=NO
+      - name: Package as IPA
+        script: |
+          mkdir -p Payload
+          cp -r "$CM_BUILD_DIR/build/Release-iphoneos/$XCODE_SCHEME.app" Payload/
+          zip -r "SoulMoon.ipa" Payload/
+    artifacts:
+      - "SoulMoon.ipa"
+    publishing:
+      email:
+        recipients:
+          - "mattmiget@gmail.com"
+        notify:
+          success: true
+          failure: true
+          
