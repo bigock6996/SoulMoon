@@ -3,28 +3,40 @@ workflows:
     name: Build Soul Moon IPA
     environment:
       vars:
-        BUNDLE_ID: "com.bigock6996.SoulMoon"
         XCODE_PROJECT: "SoulMoon.xcodeproj"
         XCODE_SCHEME: "SoulMoon"
+        BUNDLE_ID: "com.bigock6996.SoulMoon"
     scripts:
       - name: Build unsigned app
         script: |
+          # Build the app without signing
           xcodebuild -project "$XCODE_PROJECT" \
             -scheme "$XCODE_SCHEME" \
             -sdk iphoneos \
             -configuration Release \
-            -destination generic/platform=iOS \
-            build \
+            -derivedDataPath ./build \
             CODE_SIGN_IDENTITY="" \
-            CODE_SIGNING_REQUIRED="NO" \
-            CODE_SIGNING_ALLOWED="NO" \
-            PROVISIONING_PROFILE_SPECIFIER="" \
-            DEVELOPMENT_TEAM=""
+            CODE_SIGNING_REQUIRED=NO \
+            CODE_SIGNING_ALLOWED=NO
+          
+          # Find where the .app was created
+          APP_PATH=$(find ./build -name "*.app" -type d | head -n 1)
+          echo "Found app at: $APP_PATH"
+          
       - name: Package as IPA
         script: |
+          # Find the .app file again
+          APP_PATH=$(find ./build -name "*.app" -type d | head -n 1)
+          
+          # Create Payload folder and copy app
           mkdir -p Payload
-          cp -r "$CM_BUILD_DIR/build/Release-iphoneos/$XCODE_SCHEME.app" Payload/
+          cp -r "$APP_PATH" Payload/
+          
+          # Create IPA
           zip -r "SoulMoon.ipa" Payload/
+          
+          # Verify IPA was created
+          ls -la SoulMoon.ipa
     artifacts:
       - "SoulMoon.ipa"
     publishing:
