@@ -4,6 +4,7 @@ workflows:
     environment:
       ios_signing:
         distribution_type: development
+        bundle_identifier: com.bigock6996.SoulMoon
       vars:
         BUNDLE_ID: "com.bigock6996.SoulMoon"
         XCODE_PROJECT: "SoulMoon.xcodeproj"
