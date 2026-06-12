@@ -1,4 +1,4 @@
-```yaml
+
 workflows:
   soul-moon-workflow:
     name: Build unsigned Soul Moon IPA
@@ -97,4 +97,4 @@ workflows:
 
     artifacts:
       - build/SoulMoon.ipa
-```
+
