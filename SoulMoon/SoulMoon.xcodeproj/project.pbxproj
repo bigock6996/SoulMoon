@@ -5,6 +5,7 @@
 	};
 	objectVersion = 56;
 	objects = {
+
 /* Begin PBXBuildFile section */
 		001000000000000000000001 /* SoulMoonApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 001000000000000000000101 /* SoulMoonApp.swift */; };
 		001000000000000000000002 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 001000000000000000000102 /* ContentView.swift */; };
@@ -17,6 +18,7 @@
 		001000000000000000000009 /* SoulMoonActivityAttributes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 001000000000000000000104 /* SoulMoonActivityAttributes.swift */; };
 		00100000000000000000000A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 001000000000000000000105 /* Assets.xcassets */; };
 /* End PBXBuildFile section */
+
 /* Begin PBXContainerItemProxy section */
 		001000000000000000000301 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -26,6 +28,7 @@
 			remoteInfo = SoulMoonWidgetExtension;
 		};
 /* End PBXContainerItemProxy section */
+
 /* Begin PBXCopyFilesBuildPhase section */
 		001000000000000000000601 /* Embed Foundation Extensions */ = {
 			isa = PBXCopyFilesBuildPhase;
@@ -39,6 +42,7 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
 		001000000000000000000101 /* SoulMoonApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SoulMoonApp.swift; sourceTree = "<group>"; };
 		001000000000000000000102 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -54,10 +58,12 @@
 		001000000000000000000205 /* SoulMoonWidgetExtension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = SoulMoonWidgetExtension.entitlements; sourceTree = "<group>"; };
 		001000000000000000000206 /* SoulMoonWidgetExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = SoulMoonWidgetExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
+
 /* Begin PBXFrameworksBuildPhase section */
 		001000000000000000000701 /* Frameworks */ = {isa = PBXFrameworksBuildPhase; buildActionMask = 2147483647; files = (); runOnlyForDeploymentPostprocessing = 0; };
 		001000000000000000000702 /* Frameworks */ = {isa = PBXFrameworksBuildPhase; buildActionMask = 2147483647; files = (); runOnlyForDeploymentPostprocessing = 0; };
 /* End PBXFrameworksBuildPhase section */
+
 /* Begin PBXGroup section */
 		001000000000000000000801 = {
 			isa = PBXGroup;
@@ -92,3 +98,342 @@
 			);
 			path = SoulMoonWidgetExtension;
 			sourceTree = "<group>";
+		};
+		001000000000000000000804 /* Shared */ = {
+			isa = PBXGroup;
+			children = (
+				001000000000000000000104 /* SoulMoonActivityAttributes.swift */,
+			);
+			path = Shared;
+			sourceTree = "<group>";
+		};
+		001000000000000000000805 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				001000000000000000000901 /* SoulMoon.app */,
+				001000000000000000000201 /* SoulMoonWidgetExtension.appex */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		001000000000000000000901 /* SoulMoon.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SoulMoon.app; sourceTree = BUILT_PRODUCTS_DIR; };
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		001000000000000000000501 /* SoulMoon */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 001000000000000000000A01 /* Build configuration list for PBXNativeTarget "SoulMoon" */;
+			buildPhases = (
+				001000000000000000000B01 /* Sources */,
+				001000000000000000000701 /* Frameworks */,
+				001000000000000000000C01 /* Resources */,
+				001000000000000000000601 /* Embed Foundation Extensions */,
+			);
+			buildRules = ();
+			dependencies = (
+				001000000000000000000D01 /* PBXTargetDependency */,
+			);
+			name = SoulMoon;
+			productName = SoulMoon;
+			productReference = 001000000000000000000901 /* SoulMoon.app */;
+			productType = "com.apple.product-type.application";
+		};
+		001000000000000000000502 /* SoulMoonWidgetExtension */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 001000000000000000000A02 /* Build configuration list for PBXNativeTarget "SoulMoonWidgetExtension" */;
+			buildPhases = (
+				001000000000000000000B02 /* Sources */,
+				001000000000000000000702 /* Frameworks */,
+				001000000000000000000C02 /* Resources */,
+			);
+			buildRules = ();
+			dependencies = ();
+			name = SoulMoonWidgetExtension;
+			productName = SoulMoonWidgetExtension;
+			productReference = 001000000000000000000201 /* SoulMoonWidgetExtension.appex */;
+			productType = "com.apple.product-type.app-extension";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		001000000000000000000401 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = 1;
+				LastSwiftUpdateCheck = 1600;
+				LastUpgradeCheck = 1600;
+				TargetAttributes = {
+					001000000000000000000501 = {
+						CreatedOnToolsVersion = 16.0;
+					};
+					001000000000000000000502 = {
+						CreatedOnToolsVersion = 16.0;
+					};
+				};
+			};
+			buildConfigurationList = 001000000000000000000A00 /* Build configuration list for PBXProject "SoulMoon" */;
+			compatibilityVersion = "Xcode 14.0";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 001000000000000000000801;
+			productRefGroup = 001000000000000000000805 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				001000000000000000000501 /* SoulMoon */,
+				001000000000000000000502 /* SoulMoonWidgetExtension */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		001000000000000000000C01 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				001000000000000000000005 /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		001000000000000000000C02 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				00100000000000000000000A /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		001000000000000000000B01 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				001000000000000000000001 /* SoulMoonApp.swift in Sources */,
+				001000000000000000000002 /* ContentView.swift in Sources */,
+				001000000000000000000003 /* SoulMoonActivityManager.swift in Sources */,
+				001000000000000000000004 /* SoulMoonActivityAttributes.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		001000000000000000000B02 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				001000000000000000000007 /* SoulMoonLiveActivity.swift in Sources */,
+				001000000000000000000008 /* SoulMoonWidgetBundle.swift in Sources */,
+				001000000000000000000009 /* SoulMoonActivityAttributes.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		001000000000000000000D01 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 001000000000000000000502 /* SoulMoonWidgetExtension */;
+			targetProxy = 001000000000000000000301 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		001000000000000000000E01 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = "DEBUG=1";
+				IPHONEOS_DEPLOYMENT_TARGET = 26.5;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		001000000000000000000E02 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = s;
+				IPHONEOS_DEPLOYMENT_TARGET = 26.5;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+			};
+			name = Release;
+		};
+		001000000000000000000E11 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = SoulMoon/SoulMoon.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "";
+				DEVELOPMENT_TEAM = "";
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = NO;
+				INFOPLIST_FILE = SoulMoon/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = "Soul Moon";
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.lifestyle";
+				IPHONEOS_DEPLOYMENT_TARGET = 26.5;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.bigock6996.SoulMoon;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 1;
+			};
+			name = Debug;
+		};
+		001000000000000000000E12 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = SoulMoon/SoulMoon.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "";
+				DEVELOPMENT_TEAM = "";
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = NO;
+				INFOPLIST_FILE = SoulMoon/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = "Soul Moon";
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.lifestyle";
+				IPHONEOS_DEPLOYMENT_TARGET = 26.5;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.bigock6996.SoulMoon;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 1;
+			};
+			name = Release;
+		};
+		001000000000000000000E21 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = SoulMoonWidgetExtension/SoulMoonWidgetExtension.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = "";
+				GENERATE_INFOPLIST_FILE = NO;
+				INFOPLIST_FILE = SoulMoonWidgetExtension/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 26.5;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.bigock6996.SoulMoon.SoulMoonWidgetExtension;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 1;
+			};
+			name = Debug;
+		};
+		001000000000000000000E22 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = SoulMoonWidgetExtension/SoulMoonWidgetExtension.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = "";
+				GENERATE_INFOPLIST_FILE = NO;
+				INFOPLIST_FILE = SoulMoonWidgetExtension/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 26.5;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.bigock6996.SoulMoon.SoulMoonWidgetExtension;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SUPPORTED_PLATFORMS = "iphoneos";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 1;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		001000000000000000000A00 /* Build configuration list for PBXProject "SoulMoon" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				001000000000000000000E01 /* Debug */,
+				001000000000000000000E02 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		001000000000000000000A01 /* Build configuration list for PBXNativeTarget "SoulMoon" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				001000000000000000000E11 /* Debug */,
+				001000000000000000000E12 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		001000000000000000000A02 /* Build configuration list for PBXNativeTarget "SoulMoonWidgetExtension" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				001000000000000000000E21 /* Debug */,
+				001000000000000000000E22 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 001000000000000000000401 /* Project object */;
+}
