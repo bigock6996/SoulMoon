@@ -3,13 +3,11 @@ workflows:
     name: Build Soul Moon IPA
     environment:
       vars:
-        XCODE_PROJECT: "SoulMoon.xcodeproj"
+        XCODE_PROJECT: "SoulMoon/SoulMoon.xcodeproj"
         XCODE_SCHEME: "SoulMoon"
-        BUNDLE_ID: "com.bigock6996.SoulMoon"
     scripts:
       - name: Build unsigned app
         script: |
-          # Build the app without signing
           xcodebuild -project "$XCODE_PROJECT" \
             -scheme "$XCODE_SCHEME" \
             -sdk iphoneos \
@@ -18,52 +16,24 @@ workflows:
             CODE_SIGN_IDENTITY="" \
             CODE_SIGNING_REQUIRED=NO \
             CODE_SIGNING_ALLOWED=NO
-          
-          # Find the .app file (correct path after build)
-          APP_PATH=$(find ./DerivedData -name "*.app" -type d | head -n 1)
+
+          APP_PATH=$(find ./DerivedData -name "SoulMoon.app" -type d | head -n 1)
           echo "Found app at: $APP_PATH"
-          
-          # Verify the app exists
+
           if [ -z "$APP_PATH" ]; then
             echo "ERROR: No .app file found!"
             exit 1
           fi
-          
-          ls -la "$APP_PATH"
-          
+
       - name: Package as IPA
         script: |
-          # Find the .app file again
-          APP_PATH=$(find ./DerivedData -name "*.app" -type d | head -n 1)
-          
-          if [ -z "$APP_PATH" ]; then
-            echo "ERROR: No .app file found for packaging!"
-            exit 1
-          fi
-          
-          # Create Payload folder and copy app
+          APP_PATH=$(find ./DerivedData -name "SoulMoon.app" -type d | head -n 1)
+
           mkdir -p Payload
           cp -r "$APP_PATH" Payload/
-          
-          # Create IPA
-          zip -r "SoulMoon.ipa" Payload/
-          
-          # Verify IPA was created and has content
-          IPA_SIZE=$(stat -f%z "SoulMoon.ipa" 2>/dev/null || echo "0")
-          echo "IPA size: $IPA_SIZE bytes"
-          
-          if [ "$IPA_SIZE" -lt "1000" ]; then
-            echo "WARNING: IPA is too small ($IPA_SIZE bytes) - build may have failed"
-          fi
-          
-          ls -la SoulMoon.ipa
+          zip -r SoulMoon.ipa Payload/
+
+          unzip -l SoulMoon.ipa
+
     artifacts:
-      - "SoulMoon.ipa"
-    publishing:
-      email:
-        recipients:
-          - "mattmiget@gmail.com"
-        notify:
-          success: true
-          failure: true
-          
+      - SoulMoon.ipa
