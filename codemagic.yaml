@@ -1,11 +1,8 @@
 workflows:
   soul-moon-workflow:
-    name: Build signed Soul Moon IPA
+    name: Build unsigned Soul Moon IPA
     max_build_duration: 60
     instance_type: mac_mini_m2
-
-    integrations:
-      app_store_connect: Codemagic
 
     environment:
       xcode: latest
@@ -14,11 +11,6 @@ workflows:
         XCODE_SCHEME: "SoulMoon"
         APP_BUNDLE_ID: "com.bigock6996.SoulMoon"
         EXTENSION_BUNDLE_ID: "com.bigock6996.SoulMoon.SoulMoonWidgetExtension"
-      ios_signing:
-        distribution_type: development
-        bundle_identifier:
-          - com.bigock6996.SoulMoon
-          - com.bigock6996.SoulMoon.SoulMoonWidgetExtension
 
     scripts:
       - name: Enter SoulMoon project directory
@@ -33,7 +25,7 @@ workflows:
           test -d "$XCODE_PROJECT"
           xcodebuild -list -project "$XCODE_PROJECT"
 
-      - name: Configure code signing
+      - name: Build unsigned app
         script: |
           set -euo pipefail
 
@@ -41,73 +33,67 @@ workflows:
             cd SoulMoon
           fi
 
-          keychain initialize
+          DERIVED_DATA_PATH="$CM_BUILD_DIR/DerivedData"
 
-          app-store-connect fetch-signing-files "$APP_BUNDLE_ID" \
-            --type IOS_APP_DEVELOPMENT \
-            --create
+          xcodebuild clean build \
+            -project "$XCODE_PROJECT" \
+            -scheme "$XCODE_SCHEME" \
+            -sdk iphoneos \
+            -configuration Release \
+            -derivedDataPath "$DERIVED_DATA_PATH" \
+            CODE_SIGNING_ALLOWED=NO \
+            CODE_SIGNING_REQUIRED=NO \
+            CODE_SIGN_IDENTITY=""
 
-          app-store-connect fetch-signing-files "$EXTENSION_BUNDLE_ID" \
-            --type IOS_APP_DEVELOPMENT \
-            --create
+          APP_PATH=$(find "$DERIVED_DATA_PATH" -path "*/Release-iphoneos/SoulMoon.app" -type d | head -n 1)
+          echo "Found app at: $APP_PATH"
 
-          keychain add-certificates
-
-          xcode-project use-profiles \
-            --project "$XCODE_PROJECT"
-
-      - name: Build signed IPA
-        script: |
-          set -euo pipefail
-
-          if [ -d "SoulMoon" ] && [ -d "SoulMoon/SoulMoon.xcodeproj" ]; then
-            cd SoulMoon
-          fi
-
-          xcode-project build-ipa \
-            --project "$XCODE_PROJECT" \
-            --scheme "$XCODE_SCHEME" \
-            --configuration Release
-
-      - name: Verify signed IPA structure and signatures
-        script: |
-          set -euo pipefail
-
-          IPA_PATH=$(find "$CM_BUILD_DIR" \( -path "*/build/ios/ipa/*.ipa" -o -name "*.ipa" \) | head -n 1)
-          echo "IPA path: $IPA_PATH"
-
-          if [ -z "$IPA_PATH" ]; then
-            echo "ERROR: No signed IPA found."
+          if [ -z "$APP_PATH" ]; then
+            echo "ERROR: No SoulMoon.app found."
             exit 1
           fi
 
-          VERIFY_DIR="$CM_BUILD_DIR/build/verify-ipa"
-          rm -rf "$VERIFY_DIR"
-          mkdir -p "$VERIFY_DIR"
-          unzip -q "$IPA_PATH" -d "$VERIFY_DIR"
-
-          APP_PATH="$VERIFY_DIR/Payload/SoulMoon.app"
           EXTENSION_PATH="$APP_PATH/PlugIns/SoulMoonWidgetExtension.appex"
 
           test -d "$APP_PATH"
+          test -f "$APP_PATH/SoulMoon"
+          test -f "$APP_PATH/Info.plist"
+          test -f "$APP_PATH/Assets.car"
+          test -d "$APP_PATH/PlugIns"
           test -d "$EXTENSION_PATH"
+          test -f "$EXTENSION_PATH/SoulMoonWidgetExtension"
+          test -f "$EXTENSION_PATH/Info.plist"
 
           /usr/libexec/PlistBuddy -c "Print :CFBundleIdentifier" "$APP_PATH/Info.plist" | grep -qx "$APP_BUNDLE_ID"
           /usr/libexec/PlistBuddy -c "Print :CFBundleIdentifier" "$EXTENSION_PATH/Info.plist" | grep -qx "$EXTENSION_BUNDLE_ID"
 
-          codesign --verify --deep --strict --verbose=2 "$APP_PATH"
-          codesign --verify --deep --strict --verbose=2 "$EXTENSION_PATH"
+      - name: Package unsigned IPA
+        script: |
+          set -euo pipefail
 
-          unzip -l "$IPA_PATH" | grep -q "Payload/SoulMoon.app/"
-          unzip -l "$IPA_PATH" | grep -q "Payload/SoulMoon.app/PlugIns/SoulMoonWidgetExtension.appex/"
+          DERIVED_DATA_PATH="$CM_BUILD_DIR/DerivedData"
+          APP_PATH=$(find "$DERIVED_DATA_PATH" -path "*/Release-iphoneos/SoulMoon.app" -type d | head -n 1)
+          IPA_ROOT="$CM_BUILD_DIR/build/ipa-root"
+          IPA_PATH="$CM_BUILD_DIR/build/SoulMoon.ipa"
 
-          mkdir -p "$CM_BUILD_DIR/build/signed-ipa"
-          cp "$IPA_PATH" "$CM_BUILD_DIR/build/signed-ipa/SoulMoon.ipa"
+          if [ -z "$APP_PATH" ]; then
+            echo "ERROR: No SoulMoon.app found."
+            exit 1
+          fi
 
-          echo "Verified signed AltStore-compatible IPA:"
-          echo "$CM_BUILD_DIR/build/signed-ipa/SoulMoon.ipa"
+          rm -rf "$IPA_ROOT"
+          mkdir -p "$IPA_ROOT/Payload"
+          cp -R "$APP_PATH" "$IPA_ROOT/Payload/SoulMoon.app"
 
-    artifacts:
-      - build/signed-ipa/SoulMoon.ipa
-      - build/ios/ipa/*.ipa
-      - build/ios/archive/*.xcarchive
+          cd "$IPA_ROOT"
+          zip -qry "$IPA_PATH" Payload
+
+          echo "Unsigned IPA created at: $IPA_PATH"
+          ls -lh "$IPA_PATH"
+
+      - name: Verify IPA contents
+        script: |
+          set -euo pipefail
+
+          IPA_PATH="$CM_BUILD_DIR/build/SoulMoon.ipa"
+          VERIFY_DIR="$CM_BUILD_DIR/build/verify-ipa"
